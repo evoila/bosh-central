@@ -23,14 +23,12 @@ public class PackageController {
     public static List<BoshPackage> database = new ArrayList<>();
 
 
-    @PostMapping(value = "/{packageName}")
+    @PostMapping(value = "")
     public ResponseEntity<String> uploadSpecfile(
-            @PathVariable(value="packageName") String packageName,
             @RequestBody() BoshPackage boshPackage
     ){
 
         UUID uuid = UUID.randomUUID();
-        boshPackage.setName(packageName);
         boshPackage.setUuid(uuid);
 
         database.add(boshPackage);

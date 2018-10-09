@@ -6,10 +6,10 @@ public class Stemcell {
     private String family;
 
     @JsonProperty("major_version")
-    private int majorVersion;
+    private Integer majorVersion;
 
     @JsonProperty("minor_version")
-    private int minorVersion;
+    private Integer minorVersion;
 
     public Stemcell(String family, Integer majorVersion, Integer minorVersion) {
         this.family = family;
