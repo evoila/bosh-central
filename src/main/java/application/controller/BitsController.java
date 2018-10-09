@@ -50,7 +50,7 @@ public class BitsController {
     }
 
     private BoshPackage getBoshPackageById(UUID uuid) {
-        List<BoshPackage> returnValue =  PackageController.database.stream().filter(k -> k.getUuid() == uuid).collect(Collectors.toList());
+        List<BoshPackage> returnValue =  PackageController.database.stream().filter(k -> k.getUuid().equals(uuid)).collect(Collectors.toList());
         if(!returnValue.isEmpty()) {
             return returnValue.get(0);
         } else {
