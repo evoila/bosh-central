@@ -1,7 +1,7 @@
-package controller;
+package application.controller;
 
-import model.BoshPackage;
-import model.StorageService;
+import application.model.BoshPackage;
+import application.model.StorageService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.io.Resource;

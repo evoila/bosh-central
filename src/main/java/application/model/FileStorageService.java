@@ -1,6 +1,6 @@
-package model;
+package application.model;
 
-import exception.FileStorageException;
+import application.exception.FileStorageException;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Service;
@@ -23,7 +23,7 @@ public class FileStorageService implements StorageService {
     private final Path fileStorageLocation;
 
     public FileStorageService() {
-        this.fileStorageLocation = Paths.get("/Users/reneschollmeyer/Documents/Hackathon/filestorage")
+        this.fileStorageLocation = Paths.get("./hackathon-filestorage   ")
                 .toAbsolutePath().normalize();
 
         try {

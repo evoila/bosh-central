@@ -1,7 +1,7 @@
-package beans;
+package application.beans;
 
-import controller.PackageController;
-import model.BoshPackage;
+import application.controller.PackageController;
+import application.model.BoshPackage;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
