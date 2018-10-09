@@ -11,6 +11,9 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.net.MalformedURLException;
+import java.util.List;
+import java.util.UUID;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping(value = "/bits")
@@ -26,21 +29,32 @@ public class BitsController {
 
     @PostMapping(value = "/{uuid}")
     public ResponseEntity<BoshPackage> uploadBlob(
-            @PathVariable(value = "uuid") String uuid,
+            @PathVariable(value = "uuid") UUID uuid,
             @RequestParam("file") MultipartFile file) {
 
         String filepath = storageService.store(file);
 
-        PackageController.database.get(uuid).setFileUri(filepath);
+        getBoshPackageById(uuid).setFileUri(filepath);
 
         log.debug("Successfully uploaded " + file.getOriginalFilename() + " to storage.");
 
-        return new ResponseEntity<>(PackageController.database.get(uuid), HttpStatus.ACCEPTED);
+        return new ResponseEntity<>(getBoshPackageById(uuid), HttpStatus.ACCEPTED);
     }
 
     @GetMapping(value = "/{uuid}")
-    public Resource downloadBlob(@PathVariable(value = "uuid") String uuid) throws MalformedURLException {
+    public Resource downloadBlob(@PathVariable(value = "uuid") UUID uuid) throws MalformedURLException {
 
-        return storageService.loadAsResource(PackageController.database.get(uuid).getFileUri());
+        log.debug("Successfully loaded file for UUID = " + uuid);
+
+        return storageService.loadAsResource(getBoshPackageById(uuid).getFileUri());
+    }
+
+    private BoshPackage getBoshPackageById(UUID uuid) {
+        List<BoshPackage> returnValue =  PackageController.database.stream().filter(k -> k.getUuid() == uuid).collect(Collectors.toList());
+        if(!returnValue.isEmpty()) {
+            return returnValue.get(0);
+        } else {
+            return null;
+        }
     }
 }
