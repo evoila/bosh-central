@@ -3,6 +3,7 @@ package application.controller;
 import application.beans.MatcherBean;
 import application.model.BoshPackage;
 import application.model.Stemcell;
+import org.json.JSONObject;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -23,7 +24,7 @@ public class PackageController {
 
 
     @PostMapping(value = "/{packageName}")
-    public ResponseEntity<UUID> uploadSpecfile(
+    public ResponseEntity<String> uploadSpecfile(
             @PathVariable(value="packageName") String packageName,
             @RequestBody() BoshPackage boshPackage
     ){
@@ -34,7 +35,11 @@ public class PackageController {
 
         database.add(boshPackage);
 
-        return new ResponseEntity<UUID>(uuid, HttpStatus.CREATED);
+        String uuidAsJson = new JSONObject()
+                .put("urn", "urn:package:" + uuid.toString())
+                .toString();
+
+        return new ResponseEntity<>(uuidAsJson, HttpStatus.CREATED);
 
     }
     @GetMapping(value = "")
