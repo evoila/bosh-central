@@ -46,12 +46,14 @@ public class MatcherBean {
 
     public List<BoshPackage> getActualDependencies(List<BoshPackage> dependencies) {
         List<BoshPackage> returnValue = new ArrayList<>();
-        for (BoshPackage dependencie : dependencies) {
-            List<BoshPackage> list = PackageController.database.stream().filter(k -> k.equals(dependencie)).collect(Collectors.toList());
-            if (list != null && list.size() > 0) {
-                returnValue.add(list.get(0));
-            } else {
-                returnValue.add(dependencie);
+        if(dependencies != null) {
+            for (BoshPackage dependency : dependencies) {
+                List<BoshPackage> list = PackageController.database.stream().filter(k -> k.equals(dependency)).collect(Collectors.toList());
+                if (list != null && list.size() > 0) {
+                    returnValue.add(list.get(0));
+                } else {
+                    returnValue.add(dependency);
+                }
             }
         }
         return returnValue;
