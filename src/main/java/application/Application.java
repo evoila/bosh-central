@@ -8,7 +8,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.util.Assert;
 
 @SpringBootApplication
-@ComponentScan(value = {"controller", "model"})
+@ComponentScan
 public class Application {
 
     public static void main(String[] args) {

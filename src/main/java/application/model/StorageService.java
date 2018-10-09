@@ -1,6 +1,6 @@
-package model;
+package application.model;
 
-import exception.FileStorageException;
+import application.exception.FileStorageException;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Service;
@@ -18,12 +18,12 @@ import java.nio.file.StandardCopyOption;
  * Created by reneschollmeyer, evoila on 09.10.18.
  */
 @Service
-public class FileStorageService implements StorageService {
+public class StorageService {
 
     private final Path fileStorageLocation;
 
-    public FileStorageService() {
-        this.fileStorageLocation = Paths.get("/Users/reneschollmeyer/Documents/Hackathon/filestorage")
+    public StorageService() {
+        this.fileStorageLocation = Paths.get("./hackathon-filestorage")
                 .toAbsolutePath().normalize();
 
         try {
@@ -33,7 +33,6 @@ public class FileStorageService implements StorageService {
         }
     }
 
-    @Override
     public String store(MultipartFile file) {
 
         String fileName = StringUtils.cleanPath(file.getOriginalFilename());
@@ -53,7 +52,6 @@ public class FileStorageService implements StorageService {
         return targetLocation.toString();
     }
 
-    @Override
     public Resource loadAsResource(String filepath) throws MalformedURLException {
 
         Path path = Paths.get(filepath);

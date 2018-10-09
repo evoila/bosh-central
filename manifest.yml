@@ -1,0 +1,9 @@
+---
+instances: 1
+timeout: 180
+memory: 1024M
+applications:
+- name: bosh-central
+  host: bosh-central
+  path: target/bosh.central-1.0-SNAPSHOT.jar
+  buildpack: https://github.com/cloudfoundry/java-buildpack.git

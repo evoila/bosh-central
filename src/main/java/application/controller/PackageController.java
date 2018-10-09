@@ -1,16 +1,13 @@
-package controller;
+package application.controller;
 
-import beans.MatcherBean;
-import model.BoshPackage;
-import model.PackageResponse;
-import model.Stemcell;
-import org.springframework.beans.factory.annotation.Autowired;
+import application.beans.MatcherBean;
+import application.model.BoshPackage;
+import application.model.Stemcell;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
 
