@@ -1,35 +1,30 @@
 package model;
 
+import java.util.List;
 import java.util.UUID;
 
 public class BoshPackage {
     private String name;
     private String version;
 
-    private String stemcellFamily;
-    private int stemcellMajor;
-    private int stemcellMinor;
+    private Stemcell stemcell;
 
-    private Vendor vendor;
+    private String flavor;
+
+    private String description;
+
+    private String vendor;
 
     private UUID uuid;
 
-    private Spec spec;
+    private String os;
+
+    private String arch;
 
     private String fileUri;
 
-    public BoshPackage(String name, String version,
-                       String stemcellFamily, int stemcellMajor, int stemcellMinor,
-                       Vendor vendor, UUID uuid, Spec spec) {
-        this.name = name;
-        this.version = version;
-        this.stemcellFamily = stemcellFamily;
-        this.stemcellMajor = stemcellMajor;
-        this.stemcellMinor = stemcellMinor;
-        this.vendor = vendor;
-        this.uuid = uuid;
-        this.spec = spec;
-    }
+    private List<BoshPackage> dependencies;
+
 
     public String getName() {
         return name;
@@ -47,37 +42,6 @@ public class BoshPackage {
         this.version = version;
     }
 
-    public String getStemcellFamily() {
-        return stemcellFamily;
-    }
-
-    public void setStemcellFamily(String stemcellFamily) {
-        this.stemcellFamily = stemcellFamily;
-    }
-
-    public int getStemcellMajor() {
-        return stemcellMajor;
-    }
-
-    public void setStemcellMajor(int stemcellMajor) {
-        this.stemcellMajor = stemcellMajor;
-    }
-
-    public int getStemcellMinor() {
-        return stemcellMinor;
-    }
-
-    public void setStemcellMinor(int stemcellMinor) {
-        this.stemcellMinor = stemcellMinor;
-    }
-
-    public Vendor getVendor() {
-        return vendor;
-    }
-
-    public void setVendor(Vendor vendor) {
-        this.vendor = vendor;
-    }
 
     public UUID getUuid() {
         return uuid;
@@ -87,19 +51,67 @@ public class BoshPackage {
         this.uuid = uuid;
     }
 
-    public Spec getSpec() {
-        return spec;
-    }
-
-    public void setSpec(Spec spec) {
-        this.spec = spec;
-    }
-
     public String getFileUri() {
         return fileUri;
     }
 
     public void setFileUri(String fileUri) {
         this.fileUri = fileUri;
+    }
+
+    public Stemcell getStemcell() {
+        return stemcell;
+    }
+
+    public void setStemcell(Stemcell stemcell) {
+        this.stemcell = stemcell;
+    }
+
+    public String getFlavor() {
+        return flavor;
+    }
+
+    public void setFlavor(String flavor) {
+        this.flavor = flavor;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getVendor() {
+        return vendor;
+    }
+
+    public void setVendor(String vendor) {
+        this.vendor = vendor;
+    }
+
+    public String getOs() {
+        return os;
+    }
+
+    public void setOs(String os) {
+        this.os = os;
+    }
+
+    public String getArch() {
+        return arch;
+    }
+
+    public void setArch(String arch) {
+        this.arch = arch;
+    }
+
+    public List<BoshPackage> getDependencies() {
+        return dependencies;
+    }
+
+    public void setDependencies(List<BoshPackage> dependencies) {
+        this.dependencies = dependencies;
     }
 }
