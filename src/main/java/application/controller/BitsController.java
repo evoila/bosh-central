@@ -32,7 +32,7 @@ public class BitsController {
             @PathVariable(value = "uuid") UUID uuid,
             @RequestParam("file") MultipartFile file) {
 
-        String filepath = storageService.store(file);
+        String filepath = storageService.store(file, uuid);
 
         getBoshPackageById(uuid).setFileUri(filepath);
 

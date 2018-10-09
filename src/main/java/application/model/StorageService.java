@@ -4,7 +4,6 @@ import application.exception.FileStorageException;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -13,6 +12,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.util.UUID;
 
 /**
  * Created by reneschollmeyer, evoila on 09.10.18.
@@ -33,9 +33,9 @@ public class StorageService {
         }
     }
 
-    public String store(MultipartFile file) {
+    public String store(MultipartFile file, UUID uuid) {
 
-        String fileName = StringUtils.cleanPath(file.getOriginalFilename());
+        String fileName = uuid.toString() + ".tgz";
 
         if(fileName.contains("..")) {
             throw new FileStorageException("Filename contains invalid path sequence " + fileName);
