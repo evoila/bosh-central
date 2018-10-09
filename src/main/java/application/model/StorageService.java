@@ -23,7 +23,7 @@ public class StorageService {
     private final Path fileStorageLocation;
 
     public StorageService() {
-        this.fileStorageLocation = Paths.get("./hackathon-filestorage   ")
+        this.fileStorageLocation = Paths.get("./hackathon-filestorage")
                 .toAbsolutePath().normalize();
 
         try {
