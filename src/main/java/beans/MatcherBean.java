@@ -4,6 +4,7 @@ import controller.PackageController;
 import model.BoshPackage;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -13,7 +14,7 @@ public class MatcherBean {
     public List<BoshPackage> searchForMatches(BoshPackage bp) {
         return PackageController.database.stream().filter(d -> {
 
-            if(!d.getName().equals(bp.getVendor()))
+            if (!d.getName().equals(bp.getVendor()))
                 return false;
 
             if (bp.getVersion() != null) {
@@ -35,11 +36,25 @@ public class MatcherBean {
                 }
             }
             if (bp.getVendor() != null) {
-                if(!d.getVendor().equals(bp.getVendor()))
+                if (!d.getVendor().equals(bp.getVendor()))
                     return false;
             }
             return false;
 
         }).collect(Collectors.toList());
     }
+
+    public List<BoshPackage> getActualDependencies(List<BoshPackage> dependencies) {
+        List<BoshPackage> returnValue = new ArrayList<>();
+        for (BoshPackage dependencie : dependencies) {
+            List<BoshPackage> list = PackageController.database.stream().filter(k -> k.equals(dependencie)).collect(Collectors.toList());
+            if (list != null) {
+                returnValue.add(list.get(0));
+            } else {
+                returnValue.add(dependencie);
+            }
+        }
+        return returnValue;
+    }
+
 }

@@ -40,7 +40,7 @@ public class PackageController {
 
     }
     @GetMapping(value = "")
-    public ResponseEntity<PackageResponse> getPackageInformation(
+    public ResponseEntity<List<BoshPackage>> getPackageInformation(
             @RequestParam(value = "vendor") String vendor,
             @RequestParam(value = "packageName") String packageName,
             @RequestParam(value = "version") String version,
@@ -51,7 +51,8 @@ public class PackageController {
         Stemcell stemcell = new Stemcell(stemcellFamily, stemcellMajor, stemcellMinor);
         BoshPackage boshPackage = new BoshPackage(packageName, version, vendor, stemcell);
         List<BoshPackage> results = this.matcherBean.searchForMatches(boshPackage);
-        return null;
+        results.forEach(k -> k.setDependencies(this.matcherBean.getActualDependencies(k.getDependencies())));
+        return new ResponseEntity<List<BoshPackage>>(results, HttpStatus.FOUND);
 
     }
 }
