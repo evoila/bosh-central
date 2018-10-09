@@ -25,6 +25,17 @@ public class BoshPackage {
 
     private List<BoshPackage> dependencies;
 
+    public BoshPackage(String name, String version, String vendor, Stemcell stemcell){
+        this.name = name;
+        this.version = version;
+        this.vendor = vendor;
+        this.stemcell = stemcell;
+    }
+
+
+    public BoshPackage(){
+
+    }
 
     public String getName() {
         return name;
@@ -113,5 +124,13 @@ public class BoshPackage {
 
     public void setDependencies(List<BoshPackage> dependencies) {
         this.dependencies = dependencies;
+    }
+
+    public boolean equals(BoshPackage obj) {
+        if(name.equals(obj.name) && version.equals(obj.version) && stemcell.equals(obj.stemcell)
+                && vendor.equals(obj.vendor) && flavor.equals(obj.flavor) && os.equals(obj.os)){
+            return true;
+        }
+        return false;
     }
 }

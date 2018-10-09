@@ -1,39 +1,40 @@
 package controller;
 
+import beans.MatcherBean;
 import model.BoshPackage;
 import model.PackageResponse;
+import model.Stemcell;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.UUID;
 
 @RestController
 @RequestMapping(value = "/package")
 public class PackageController {
+    private MatcherBean matcherBean;
+    public PackageController(MatcherBean matcherBean){
+        this.matcherBean = matcherBean;
+    }
 
-    static HashMap<String, BoshPackage> database = new HashMap<String, BoshPackage>();
+    public static List<BoshPackage> database = new ArrayList<>();
 
 
-    @PostMapping(value = "/{vendor}/{packageName}/{version}")
+    @PostMapping(value = "/{packageName}/")
     public ResponseEntity<UUID> uploadSpecfile(
-            @PathVariable(value="vendor") String vendor,
             @PathVariable(value="packageName") String packageName,
-            @PathVariable(value="version") String version,
-            @RequestParam(value="stemcellFamily") String stemcellFamily,
-            @RequestParam(value = "stemcellMajor") int stemcellMajor,
-            @RequestParam(value = "stemcellMajor") int stemcellMinor,
-            @RequestBody() Spec spec
+            @RequestBody() BoshPackage boshPackage
     ){
 
         UUID uuid = UUID.randomUUID();
-        BoshPackage boshPackage = new BoshPackage(packageName, version,
-                stemcellFamily, stemcellMajor,
-                stemcellMinor, new Vendor(vendor), UUID.randomUUID(), spec);
+        boshPackage.setUuid(uuid);
 
-        database.put(uuid.toString(), boshPackage);
-
+        database.add(boshPackage);
 
         return new ResponseEntity<UUID>(uuid, HttpStatus.CREATED);
 
@@ -47,6 +48,10 @@ public class PackageController {
             @RequestParam(value = "stemcellMajor") int stemcellMajor,
             @RequestParam(value = "stemcellMinor") int stemcellMinor
     ) {
-                return null;
+        Stemcell stemcell = new Stemcell(stemcellFamily, stemcellMajor, stemcellMinor);
+        BoshPackage boshPackage = new BoshPackage(packageName, version, vendor, stemcell);
+        List<BoshPackage> results = this.matcherBean.searchForMatches(boshPackage);
+        return null;
+
     }
 }
