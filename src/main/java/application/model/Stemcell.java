@@ -11,7 +11,7 @@ public class Stemcell {
     @JsonProperty("minor_version")
     private int minorVersion;
 
-    public Stemcell(String family, int majorVersion, int minorVersion) {
+    public Stemcell(String family, Integer majorVersion, Integer minorVersion) {
         this.family = family;
         this.majorVersion = majorVersion;
         this.minorVersion = minorVersion;
@@ -28,19 +28,19 @@ public class Stemcell {
         this.family = family;
     }
 
-    public int getMajorVersion() {
+    public Integer getMajorVersion() {
         return majorVersion;
     }
 
-    public void setMajorVersion(int majorVersion) {
+    public void setMajorVersion(Integer majorVersion) {
         this.majorVersion = majorVersion;
     }
 
-    public int getMinorVersion() {
+    public Integer getMinorVersion() {
         return minorVersion;
     }
 
-    public void setMinorVersion(int minorVersion) {
+    public void setMinorVersion(Integer minorVersion) {
         this.minorVersion = minorVersion;
     }
 }

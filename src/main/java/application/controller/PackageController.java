@@ -48,8 +48,8 @@ public class PackageController {
             @RequestParam(value = "packageName") String packageName,
             @RequestParam(value = "version", required = false) String version,
             @RequestParam(value = "stemcellFamily", required = false) String stemcellFamily,
-            @RequestParam(value = "stemcellMajor", required = false) int stemcellMajor,
-            @RequestParam(value = "stemcellMinor", required = false) int stemcellMinor
+            @RequestParam(value = "stemcellMajor", required = false) Integer stemcellMajor,
+            @RequestParam(value = "stemcellMinor", required = false) Integer stemcellMinor
     ) {
         Stemcell stemcell = new Stemcell(stemcellFamily, stemcellMajor, stemcellMinor);
         BoshPackage boshPackage = new BoshPackage(packageName, version, vendor, stemcell);
