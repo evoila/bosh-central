@@ -53,6 +53,6 @@ public class PackageController {
         BoshPackage boshPackage = new BoshPackage(packageName, version, vendor, stemcell);
         List<BoshPackage> results = this.matcherBean.searchForMatches(boshPackage);
         results.forEach(k -> k.setDependencies(this.matcherBean.getActualDependencies(k.getDependencies())));
-        return new ResponseEntity<List<BoshPackage>>(results, HttpStatus.FOUND);
+        return new ResponseEntity<List<BoshPackage>>(results, HttpStatus.OK);
     }
 }

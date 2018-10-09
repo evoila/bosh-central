@@ -14,7 +14,7 @@ public class MatcherBean {
     public List<BoshPackage> searchForMatches(BoshPackage bp) {
         return PackageController.database.stream().filter(d -> {
 
-            if (!d.getName().equals(bp.getVendor()))
+            if (!d.getName().equals(bp.getName()))
                 return false;
 
             if (bp.getVersion() != null) {
@@ -39,7 +39,7 @@ public class MatcherBean {
                 if (!d.getVendor().equals(bp.getVendor()))
                     return false;
             }
-            return false;
+            return true;
 
         }).collect(Collectors.toList());
     }
@@ -48,7 +48,7 @@ public class MatcherBean {
         List<BoshPackage> returnValue = new ArrayList<>();
         for (BoshPackage dependencie : dependencies) {
             List<BoshPackage> list = PackageController.database.stream().filter(k -> k.equals(dependencie)).collect(Collectors.toList());
-            if (list != null) {
+            if (list != null && list.size() > 0) {
                 returnValue.add(list.get(0));
             } else {
                 returnValue.add(dependencie);
