@@ -22,7 +22,7 @@ public class PackageController {
     public static List<BoshPackage> database = new ArrayList<>();
 
 
-    @PostMapping(value = "/{packageName}/")
+    @PostMapping(value = "/{packageName}")
     public ResponseEntity<UUID> uploadSpecfile(
             @PathVariable(value="packageName") String packageName,
             @RequestBody() BoshPackage boshPackage
