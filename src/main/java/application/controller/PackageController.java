@@ -29,6 +29,7 @@ public class PackageController {
     ){
 
         UUID uuid = UUID.randomUUID();
+        boshPackage.setName(packageName);
         boshPackage.setUuid(uuid);
 
         database.add(boshPackage);
@@ -38,12 +39,12 @@ public class PackageController {
     }
     @GetMapping(value = "")
     public ResponseEntity<List<BoshPackage>> getPackageInformation(
-            @RequestParam(value = "vendor") String vendor,
+            @RequestParam(value = "vendor", required = false) String vendor,
             @RequestParam(value = "packageName") String packageName,
-            @RequestParam(value = "version") String version,
-            @RequestParam(value = "stemcellFamily") String stemcellFamily,
-            @RequestParam(value = "stemcellMajor") int stemcellMajor,
-            @RequestParam(value = "stemcellMinor") int stemcellMinor
+            @RequestParam(value = "version", required = false) String version,
+            @RequestParam(value = "stemcellFamily", required = false) String stemcellFamily,
+            @RequestParam(value = "stemcellMajor", required = false) int stemcellMajor,
+            @RequestParam(value = "stemcellMinor", required = false) int stemcellMinor
     ) {
         Stemcell stemcell = new Stemcell(stemcellFamily, stemcellMajor, stemcellMinor);
         BoshPackage boshPackage = new BoshPackage(packageName, version, vendor, stemcell);
