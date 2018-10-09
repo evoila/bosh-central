@@ -26,11 +26,11 @@ public class MatcherBean {
                     if (!d.getStemcell().getFamily().equals(bp.getStemcell().getFamily()))
                         return false;
                 }
-                if (bp.getStemcell().getMajorVersion() != 0) {
+                if (bp.getStemcell().getMajorVersion() != null) {
                     if (!(d.getStemcell().getMajorVersion() == bp.getStemcell().getMajorVersion()))
                         return false;
                 }
-                if (bp.getStemcell().getMinorVersion() != 0) {
+                if (bp.getStemcell().getMinorVersion() != null) {
                     if (!(d.getStemcell().getMinorVersion() == bp.getStemcell().getMinorVersion()))
                         return false;
                 }
