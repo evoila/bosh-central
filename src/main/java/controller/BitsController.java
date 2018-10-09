@@ -10,6 +10,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.net.MalformedURLException;
+
 @RestController
 @RequestMapping(value = "/bits")
 public class BitsController {
@@ -27,7 +29,9 @@ public class BitsController {
             @PathVariable(value = "uuid") String uuid,
             @RequestParam("file") MultipartFile file) {
 
-        storageService.store(file);
+        String filepath = storageService.store(file);
+
+        PackageController.database.get(uuid).setFileUri(filepath);
 
         log.debug("Successfully uploaded " + file.getOriginalFilename() + " to storage.");
 
@@ -35,7 +39,8 @@ public class BitsController {
     }
 
     @GetMapping(value = "/{uuid}")
-    public Resource downloadBlob(@PathVariable(value = "uuid") String uuid) {
-        return null;
+    public Resource downloadBlob(@PathVariable(value = "uuid") String uuid) throws MalformedURLException {
+
+        return storageService.loadAsResource(PackageController.database.get(uuid).getFileUri());
     }
 }
