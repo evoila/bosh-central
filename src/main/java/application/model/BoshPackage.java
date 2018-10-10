@@ -128,7 +128,7 @@ public class BoshPackage {
 
     public boolean equals(BoshPackage obj) {
         if(name.equals(obj.name) && version.equals(obj.version) && (stemcell == null || stemcell.equals(obj.stemcell))
-                && vendor.equals(obj.vendor) && flavor.equals(obj.flavor) && os.equals(obj.os)){
+                && vendor.equals(obj.vendor) && (flavor == null || flavor.equals(obj.flavor)) && (os == null || os.equals(obj.os))){
             return true;
         }
         return false;
