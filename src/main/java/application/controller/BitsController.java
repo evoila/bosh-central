@@ -33,12 +33,18 @@ public class BitsController {
             @RequestParam("file") MultipartFile file) {
 
         String filepath = storageService.store(file, uuid);
+        BoshPackage returnPackage = getBoshPackageById(uuid);
 
-        getBoshPackageById(uuid).setFileUri(filepath);
+        if(returnPackage != null) {
+            returnPackage.setFileUri(filepath);
+            log.debug("Successfully uploaded " + file.getOriginalFilename() + " to storage.");
 
-        log.debug("Successfully uploaded " + file.getOriginalFilename() + " to storage.");
+            return new ResponseEntity<>(returnPackage, HttpStatus.ACCEPTED);
+        } else {
+            log.error("Failed to upload " + file.getOriginalFilename() + ".");
 
-        return new ResponseEntity<>(getBoshPackageById(uuid), HttpStatus.ACCEPTED);
+            return new ResponseEntity<>(new BoshPackage(), HttpStatus.I_AM_A_TEAPOT);
+        }
     }
 
     @GetMapping(value = "/{uuid}")
