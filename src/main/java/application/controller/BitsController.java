@@ -34,6 +34,7 @@ public class BitsController {
 
         String filepath = storageService.store(file, uuid);
         BoshPackage returnPackage = getBoshPackageById(uuid);
+        returnPackage.setSize(file.getSize());
 
         if(returnPackage != null) {
             returnPackage.setFileUri(filepath);

@@ -25,6 +25,8 @@ public class BoshPackage {
 
     private List<BoshPackage> dependencies;
 
+    private long size;
+
     public BoshPackage(String name, String version, String vendor, Stemcell stemcell){
         this.name = name;
         this.version = version;
@@ -132,5 +134,13 @@ public class BoshPackage {
             return true;
         }
         return false;
+    }
+
+    public long getSize() {
+        return size;
+    }
+
+    public void setSize(long size) {
+        this.size = size;
     }
 }

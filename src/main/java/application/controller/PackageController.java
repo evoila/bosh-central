@@ -3,6 +3,7 @@ package application.controller;
 import application.beans.MatcherBean;
 import application.model.BoshPackage;
 import application.model.Stemcell;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.json.JSONObject;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -54,5 +55,11 @@ public class PackageController {
         List<BoshPackage> results = this.matcherBean.searchForMatches(boshPackage);
         results.forEach(k -> k.setDependencies(this.matcherBean.getActualDependencies(k.getDependencies())));
         return new ResponseEntity<>(results, HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/metadata")
+    public ResponseEntity<List<BoshPackage>> getPackeMetadata() {
+
+        return new ResponseEntity<>(database, HttpStatus.OK);
     }
 }
